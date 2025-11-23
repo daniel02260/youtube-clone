@@ -97,7 +97,21 @@ export const AuthProvider = ({ children }) => {
     }
     return { data, error }
   }
+  // Cambiar email
+  const updateEmail = async (newEmail) => {
+    const { data, error } = await supabase.auth.updateUser({
+      email: newEmail,
+    })
+    return { data, error }
+  }
 
+  // Cambiar contraseña
+  const updatePassword = async (newPassword) => {
+    const { data, error } = await supabase.auth.updateUser({
+      password: newPassword,
+    })
+    return { data, error }
+  }
   const value = {
     user,
     profile,
@@ -106,11 +120,13 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signOut,
     updateProfile,
+    updateEmail,
+    updatePassword,
   }
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   )
 }

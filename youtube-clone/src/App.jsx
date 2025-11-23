@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { useState } from 'react'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import AdminPanel from './pages/AdminPanel'
+import Layout from './components/layout/Layout'
 
 function ProtectedRoute({ children }) {
   const { user } = useAuth()
@@ -16,7 +18,7 @@ function PublicRoute({ children }) {
   return !user ? children : <Navigate to="/" />
 }
 
-function AppRoutes() {
+function AppRoutes({ searchQuery, onSearchChange }) {
   return (
     <Routes>
       <Route path="/login" element={
@@ -33,7 +35,7 @@ function AppRoutes() {
       
       <Route path="/" element={
         <ProtectedRoute>
-          <Home />
+          <Home searchQuery={searchQuery} onSearchChange={onSearchChange} />
         </ProtectedRoute>
       } />
       
@@ -53,10 +55,14 @@ function AppRoutes() {
 }
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('')
+
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <Layout onSearch={setSearchQuery}>
+          <AppRoutes searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+        </Layout>
       </AuthProvider>
     </BrowserRouter>
   )

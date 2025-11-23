@@ -34,7 +34,7 @@ export default function VideoPlayer({ video, onClose }) {
             <div className="lg:col-span-2">
               <div className="bg-black rounded-lg overflow-hidden mb-4">
                 <video
-                  className="w-full aspect-video"
+                  className="w-full aspect-video max-h-[70vh]"
                   controls
                   autoPlay
                   src={video.url_video}

@@ -2,120 +2,107 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { videoService } from '../services/videoService'
-import { LogOut, User, Youtube, Upload, Menu, Search } from 'lucide-react'
+import { Upload } from 'lucide-react'
 import UploadVideo from '../components/video/UploadVideo'
 import VideoCard from '../components/video/VideoCard'
 import VideoPlayer from '../components/video/VideoPlayer'
 
-export default function Home() {
-  const { user, profile, signOut } = useAuth()
+export default function Home({ searchQuery = '', onSearchChange }) {
+  const { signOut } = useAuth()
   const navigate = useNavigate()
+  const [allVideos, setAllVideos] = useState([])
   const [videos, setVideos] = useState([])
   const [loading, setLoading] = useState(true)
   const [showUploadModal, setShowUploadModal] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState(null)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('Todos')
+
+  const categories = ['Todos', 'Música', 'Mixes', 'En directo', 'Videojuegos', 'Películas', 'Series de televisión']
 
   useEffect(() => {
     loadVideos()
   }, [])
 
+  useEffect(() => {
+    filterVideos()
+  }, [selectedCategory, searchQuery, allVideos])
+
   const loadVideos = async () => {
     try {
       const data = await videoService.getAllVideos()
-      setVideos(data)
+      setAllVideos(data || [])
     } catch (error) {
       console.error('Error al cargar videos:', error)
+      setAllVideos([])
     } finally {
       setLoading(false)
     }
   }
 
-  const handleLogout = async () => {
-    await signOut()
-    navigate('/login')
+  const filterVideos = () => {
+    let filtered = allVideos
+
+    // Filtrar por búsqueda
+    if (searchQuery.trim()) {
+      filtered = filtered.filter(video =>
+        video.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        video.descripcion?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    }
+
+    // Filtrar por categoría (por ahora todas van a "Todos" ya que no hay categorías en BD)
+    // En el futuro se puede agregar un campo de categoría en la tabla de videos
+
+    setVideos(filtered)
   }
 
-  const filteredVideos = videos.filter(video =>
-    video.titulo.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <button className="p-2 hover:bg-gray-100 rounded-full lg:hidden">
-                <Menu className="w-6 h-6" />
-              </button>
-              <Youtube className="w-8 h-8 text-red-600" />
-              <span className="text-xl font-bold hidden sm:block">YouTube Clone</span>
-            </div>
-
-            <div className="flex-1 max-w-2xl">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Buscar videos..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-full focus:outline-none focus:border-red-500"
-                />
-                <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
+    <div className="min-h-screen bg-gray-900">
+      {/* Categorías */}
+      <div className="sticky top-0 bg-gray-900 border-b border-gray-800 z-30 backdrop-blur-sm bg-opacity-95">
+        <div className="overflow-x-auto scroll-smooth max-w-full">
+          <div className="flex gap-3 px-4 py-3 min-w-full">
+            {categories.map((cat) => (
               <button
-                onClick={() => setShowUploadModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
+                key={cat}
+                onClick={() => {
+                  setSelectedCategory(cat)
+                  // Si se pulsa 'Todos' limpiamos la búsqueda para mostrar todos los videos
+                  if (cat === 'Todos' && typeof onSearchChange === 'function') {
+                    onSearchChange('')
+                  }
+                }}
+                className={`px-4 py-2 rounded-full whitespace-nowrap font-medium transition-all text-sm ${
+                  selectedCategory === cat
+                    ? 'bg-white text-gray-900 shadow-md'
+                    : 'bg-gray-800 text-gray-200 hover:bg-gray-700 hover:text-white'
+                }`}
               >
-                <Upload className="w-5 h-5" />
-                <span className="hidden sm:inline">Subir</span>
+                {cat}
               </button>
-              
-              <button
-                onClick={() => navigate('/profile')}
-                className="p-2 hover:bg-gray-100 rounded-full"
-              >
-                <User className="w-5 h-5" />
-              </button>
-              
-              <button
-                onClick={handleLogout}
-                className="p-2 hover:bg-gray-100 rounded-full"
-              >
-                <LogOut className="w-5 h-5" />
-              </button>
-            </div>
+            ))}
           </div>
         </div>
-      </nav>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-full mx-auto px-4 sm:px-6 py-6">
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-700 border-t-red-600"></div>
           </div>
-        ) : filteredVideos.length === 0 ? (
-          <div className="text-center py-12">
-            <Youtube className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-600 text-lg">
-              {searchQuery ? 'No se encontraron videos' : 'No hay videos disponibles'}
-            </p>
-            {!searchQuery && (
-              <button
-                onClick={() => setShowUploadModal(true)}
-                className="mt-4 px-6 py-2 bg-red-600 text-white rounded-full hover:bg-red-700"
-              >
-                Subir el primer video
-              </button>
-            )}
+        ) : videos.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-gray-400 text-lg mb-6">No hay videos disponibles</p>
+            <button
+              onClick={() => setShowUploadModal(true)}
+              className="px-8 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-all font-semibold shadow-lg"
+            >
+              Subir el primer video
+            </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filteredVideos.map((video) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {videos.map((video) => (
               <VideoCard
                 key={video.id}
                 video={video}

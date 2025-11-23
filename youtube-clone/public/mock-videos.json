@@ -1,0 +1,41 @@
+[
+  {
+    "id": "1",
+    "titulo": "Big Buck Bunny (sample)",
+    "descripcion": "Clip de ejemplo: Big Buck Bunny (dominio público). Un video corto de animación de alta calidad.",
+    "url_video": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/BigBuckBunny.mp4",
+    "url_miniatura": "https://images.unsplash.com/photo-1505682634904-d7c3b2c4d6b9?w=1280&q=80&auto=format&fit=crop",
+    "duracion": 596,
+    "usuario_id": "user_1",
+    "vistas": 125340,
+    "likes": 3200,
+    "created_at": "2024-11-01T12:00:00Z",
+    "perfiles": { "nombre": "Canal Ejemplo" }
+  },
+  {
+    "id": "2",
+    "titulo": "Sintel (sample)",
+    "descripcion": "Otro video de ejemplo (Sintel). Animación de Blender Studios, video de demostraciónde alta calidad.",
+    "url_video": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/Sintel.mp4",
+    "url_miniatura": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1280&q=80&auto=format&fit=crop",
+    "duracion": 888,
+    "usuario_id": "user_2",
+    "vistas": 98760,
+    "likes": 2100,
+    "created_at": "2024-12-15T08:30:00Z",
+    "perfiles": { "nombre": "Canal Demo" }
+  },
+  {
+    "id": "3",
+    "titulo": "Tears of Steel (sample)",
+    "descripcion": "Video de ejemplo: Tears of Steel. Película corta de demostración de Blender.",
+    "url_video": "https://commondatastorage.googleapis.com/gtv-videos-library/sample/TearsOfSteel.mp4",
+    "url_miniatura": "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=1280&q=80&auto=format&fit=crop",
+    "duracion": 734,
+    "usuario_id": "user_3",
+    "vistas": 54320,
+    "likes": 950,
+    "created_at": "2025-01-10T14:20:00Z",
+    "perfiles": { "nombre": "Canal Demo 2" }
+  }
+]

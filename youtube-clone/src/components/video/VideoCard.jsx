@@ -18,45 +18,45 @@ export default function VideoCard({ video, onClick }) {
 
   return (
     <div onClick={() => onClick(video)} className="cursor-pointer group">
-      <div className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden mb-3">
+      <div className="relative aspect-video bg-gray-800 rounded-xl overflow-hidden mb-3 shadow-lg group-hover:shadow-xl group-hover:shadow-red-900/20 transition-all">
         {video.url_miniatura ? (
           <img
             src={video.url_miniatura}
             alt={video.titulo}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-300">
-            <span className="text-gray-500">Sin miniatura</span>
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
+            <span className="text-gray-600">Sin miniatura</span>
           </div>
         )}
         
         {video.duracion && (
-          <span className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-1.5 py-0.5 rounded">
+          <span className="absolute bottom-2 right-2 bg-black bg-opacity-85 text-white text-xs font-semibold px-2 py-1 rounded">
             {formatDuration(video.duracion)}
           </span>
         )}
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 px-1">
         <div className="flex-shrink-0">
-          <div className="w-9 h-9 bg-red-600 rounded-full flex items-center justify-center text-white font-semibold">
+          <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
             {video.perfiles?.nombre?.charAt(0).toUpperCase() || 'U'}
           </div>
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-sm line-clamp-2 mb-1 group-hover:text-red-600 transition-colors">
+          <h3 className="font-semibold text-sm sm:text-base line-clamp-2 mb-1.5 text-white group-hover:text-gray-200 transition-colors">
             {video.titulo}
           </h3>
           
-          <p className="text-xs text-gray-600 mb-1">
+          <p className="text-xs text-gray-400 mb-1.5 hover:text-gray-300 transition-colors">
             {video.perfiles?.nombre || 'Canal desconocido'}
           </p>
           
-          <div className="flex items-center gap-2 text-xs text-gray-600">
+          <div className="flex items-center gap-2 text-xs text-gray-500 group-hover:text-gray-400 transition-colors">
             <span className="flex items-center gap-1">
-              <Eye className="w-3 h-3" />
+              <Eye className="w-3.5 h-3.5" />
               {formatNumber(video.vistas || 0)} vistas
             </span>
             <span>•</span>
