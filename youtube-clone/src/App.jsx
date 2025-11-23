@@ -34,9 +34,7 @@ function AppRoutes({ searchQuery, onSearchChange }) {
       } />
       
       <Route path="/" element={
-        <ProtectedRoute>
-          <Home searchQuery={searchQuery} onSearchChange={onSearchChange} />
-        </ProtectedRoute>
+        <Home searchQuery={searchQuery} onSearchChange={onSearchChange} />
       } />
       
       <Route path="/profile" element={

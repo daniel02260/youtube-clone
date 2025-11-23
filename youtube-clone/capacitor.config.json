@@ -1,0 +1,14 @@
+{
+  "appId": "com.youtubeclone.app",
+  "appName": "YouTube Clone",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

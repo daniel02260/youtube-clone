@@ -72,16 +72,16 @@ export const videoService = {
 				},
 				{
 					id: 'api_2',
-					titulo: 'Deep House Sessions 2024',
+					titulo: 'se fue la pantera',
 					descripcion: 'Premium deep house and tech house music mix',
 					url_video: 'https://commondatastorage.googleapis.com/gtv-videos-library/sample/ElephantsDream.mp4',
-					url_miniatura: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&h=280&fit=crop',
+					url_miniatura: 'https://www.google.com/imgres?q=se%20fue%20la%20pantera&imgurl=https%3A%2F%2Fi.ytimg.com%2Fvi%2FmCn-HuclNrg%2Fmaxresdefault.jpg&imgrefurl=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DmCn-HuclNrg&docid=CJSKTc823YKRbM&tbnid=r8RAIyL0fc-x3M&vet=12ahUKEwjDhLvHhoeRAxWF6DQHHe9LNCcQM3oECBYQAA..i&w=1280&h=720&hcb=2&ved=2ahUKEwjDhLvHhoeRAxWF6DQHHe9LNCcQM3oECBYQAA',
 					duracion: 2880,
 					usuario_id: 'api_user_2',
 					vistas: 28500,
 					likes: 1250,
 					created_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-					perfiles: { nombre: 'DJ Studio' }
+					perfiles: { nombre: 'grupo' }
 				},
 				{
 					id: 'api_3',

@@ -18,7 +18,7 @@ export default function VideoCard({ video, onClick }) {
 
   return (
     <div onClick={() => onClick(video)} className="cursor-pointer group">
-      <div className="relative aspect-video bg-gray-800 rounded-xl overflow-hidden mb-3 shadow-lg group-hover:shadow-xl group-hover:shadow-red-900/20 transition-all">
+      <div className="relative aspect-video bg-gray-900 rounded-xl overflow-hidden mb-3 shadow-lg group-hover:shadow-xl group-hover:shadow-red-900/20 transition-all">
         {video.url_miniatura ? (
           <img
             src={video.url_miniatura}
@@ -27,7 +27,7 @@ export default function VideoCard({ video, onClick }) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
-            <span className="text-gray-600">Sin miniatura</span>
+            <span className="text-gray-500">Sin miniatura</span>
           </div>
         )}
         
@@ -46,15 +46,15 @@ export default function VideoCard({ video, onClick }) {
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-sm sm:text-base line-clamp-2 mb-1.5 text-white group-hover:text-gray-200 transition-colors">
+          <h3 className="font-semibold text-sm sm:text-base line-clamp-2 mb-1.5 text-white group-hover:text-gray-100 transition-colors">
             {video.titulo}
           </h3>
           
-          <p className="text-xs text-gray-400 mb-1.5 hover:text-gray-300 transition-colors">
+          <p className="text-xs text-gray-500 mb-1.5 hover:text-gray-400 transition-colors">
             {video.perfiles?.nombre || 'Canal desconocido'}
           </p>
           
-          <div className="flex items-center gap-2 text-xs text-gray-500 group-hover:text-gray-400 transition-colors">
+          <div className="flex items-center gap-2 text-xs text-gray-600 group-hover:text-gray-500 transition-colors">
             <span className="flex items-center gap-1">
               <Eye className="w-3.5 h-3.5" />
               {formatNumber(video.vistas || 0)} vistas

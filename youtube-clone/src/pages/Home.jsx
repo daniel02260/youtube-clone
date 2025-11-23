@@ -57,9 +57,9 @@ export default function Home({ searchQuery = '', onSearchChange }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-black">
       {/* Categorías */}
-      <div className="sticky top-0 bg-gray-900 border-b border-gray-800 z-30 backdrop-blur-sm bg-opacity-95">
+      <div className="sticky top-0 bg-black border-b border-gray-900 z-30 backdrop-blur-sm bg-opacity-95">
         <div className="overflow-x-auto scroll-smooth max-w-full">
           <div className="flex gap-3 px-4 py-3 min-w-full">
             {categories.map((cat) => (
@@ -74,8 +74,8 @@ export default function Home({ searchQuery = '', onSearchChange }) {
                 }}
                 className={`px-4 py-2 rounded-full whitespace-nowrap font-medium transition-all text-sm ${
                   selectedCategory === cat
-                    ? 'bg-white text-gray-900 shadow-md'
-                    : 'bg-gray-800 text-gray-200 hover:bg-gray-700 hover:text-white'
+                    ? 'bg-gray-900 text-white shadow-md'
+                    : 'bg-gray-900 text-gray-200 hover:bg-gray-800 hover:text-white'
                 }`}
               >
                 {cat}
@@ -92,7 +92,7 @@ export default function Home({ searchQuery = '', onSearchChange }) {
           </div>
         ) : videos.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-gray-400 text-lg mb-6">No hay videos disponibles</p>
+            <p className="text-gray-500 text-lg mb-6">No hay videos disponibles</p>
             <button
               onClick={() => setShowUploadModal(true)}
               className="px-8 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-all font-semibold shadow-lg"
